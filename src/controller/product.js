@@ -19,7 +19,7 @@ const getAllProductController = (req, res, next) => {
 
 // create product controller
 const createAllProductController = (req, res, next) => {
-  const image = req.body.file[0];
+  const image = req.body.image;
   const title = req.body.title;
   const description = req.body.description;
   const price = req.body.price;
@@ -49,7 +49,7 @@ const createAllProductController = (req, res, next) => {
 
 // get single product
 const getSingleProductController = (req, res, next) => {
-  const id = req.prams.id;
+  const id = req.params.id;
   Product.findById(id)
     .then((result) => {
       res.status(200).json({
@@ -67,7 +67,7 @@ const getSingleProductController = (req, res, next) => {
 
 // update product by single id
 const updateProductController = (req, res, next) => {
-  const id = req.prams.id;
+  const id = req.params.id;
 
   const updateProduct = {
     title: req.body.title,
@@ -93,27 +93,28 @@ const updateProductController = (req, res, next) => {
 };
 
 // delete product by id
-const deleteProductController =(req, res, next)=>{
-    const id = req.prams.id;
+const deleteProductController = (req, res, next) => {
+  const id = req.params.id;
 
-    Product.findByIdAndDelete(id)..then((result) => {
-        res.json({
-          message: "Product successfully Deleted",
-          result,
-        });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          message: "Something Error from your server",
-          error: err.message,
-        });
+  Product.findByIdAndDelete(id)
+    .then((result) => {
+      res.json({
+        message: "Product successfully Deleted",
+        result,
       });
-}
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Something Error from your server",
+        error: err.message,
+      });
+    });
+};
 
-module.exports ={
-    getAllProductController,
-    createAllProductController,
-    updateProductController,
-    getSingleProductController,
-    deleteProductController
-}
+module.exports = {
+  getAllProductController,
+  createAllProductController,
+  updateProductController,
+  getSingleProductController,
+  deleteProductController,
+};

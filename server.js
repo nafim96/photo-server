@@ -27,16 +27,19 @@ app.get("/", (req, res, next) => {
 const userRouter = require("./src/routes/user");
 const productRouter = require("./src/routes/product");
 
+// use this function when anyone send request this function are call every request
 app.use((req, res, next) => {
-  console.log("I'm Middleware function");
+  console.log("Hey Your Request Successfully Hand Over The next() Function");
   next();
 });
+
 //use user router
 app.use("/api/users", userRouter);
 
 //use Product router
 app.use("/api/products", productRouter);
 
+// Host the server
 app.listen(PORT, () => {
   console.log(`Server Running on Port ${PORT}`);
 });
